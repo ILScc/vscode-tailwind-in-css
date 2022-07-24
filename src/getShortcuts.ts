@@ -1,13 +1,13 @@
 import * as vscode from 'vscode'
 import { getExtensionSetting } from 'vscode-framework'
-import { rules } from '@unocss/preset-wind'
 import { compact } from '@zardoy/utils'
 import { parseCss } from './parseCss'
 import { SimpleVirtualDocument } from './shared'
+import ourRules from './static/ourRules'
 
 export default ({ fullText, lineText, offset, startLine }: SimpleVirtualDocument) => {
     const usedShortcutConfig = {
-        main: getExtensionSetting('usedShortcuts'),
+        enable: getExtensionSetting('usedShortcuts.enable'),
         mode: getExtensionSetting('usedShortcuts.mode'),
     }
 
@@ -15,7 +15,7 @@ export default ({ fullText, lineText, offset, startLine }: SimpleVirtualDocument
     const { usedRules } = parseCss(fullText, offset)
     if (!/^\s*(\w|-)*\s*$/.test(lineText)) return
     return compact(
-        rules
+        ourRules
             .filter(rule => typeof rule[0] === 'string' && typeof rule[1] === 'object')
             .map(([shortcut, rule]): vscode.CompletionItem | undefined => {
                 const cssDeclarations = (Array.isArray(rule) ? rule : Object.entries(rule)).filter(([prop, value], i, rulesArr) => {
@@ -38,24 +38,24 @@ export default ({ fullText, lineText, offset, startLine }: SimpleVirtualDocument
                 })
 
                 const label = shortcut as string
-                const usedShortcut = cssDeclarations.every(
+                const shortcutIsUsed = cssDeclarations.every(
                     ([prop, value]) =>
-                        usedShortcutConfig.main !== 'disable' &&
+                        usedShortcutConfig.enable !== 'disable' &&
                         (usedShortcutConfig.mode === 'only-rule' ? usedRules.get(prop) : usedRules.get(prop)?.value === value),
                 )
 
-                if (usedShortcut && usedShortcutConfig.main === 'remove') return undefined
+                if (shortcutIsUsed && usedShortcutConfig.enable === 'remove') return undefined
                 const cssRulesString = cssRules.join('\n')
                 return {
                     label,
                     insertText: cssRulesString,
-                    tags: usedShortcut ? [vscode.CompletionItemTag.Deprecated] : [],
+                    tags: shortcutIsUsed ? [vscode.CompletionItemTag.Deprecated] : [],
                     // TODO button using markdown syntax (replace n rules) and shortcut for replacing these used rules
                     documentation: new vscode.MarkdownString().appendCodeblock(
                         `.${label} {\n${cssDeclarations
                             .map(([prop, value]) => {
                                 const rule = `${prop}: ${value!};`
-                                if (usedShortcutConfig.main === 'disable' || usedShortcutConfig.main === 'remove') return `${' '.repeat(2)}${rule}`
+                                if (usedShortcutConfig.enable === 'disable' || usedShortcutConfig.enable === 'remove') return `${' '.repeat(2)}${rule}`
 
                                 const currentShortcutOffset = usedRules.get(prop)?.offset
 

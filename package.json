@@ -32,10 +32,11 @@
     },
     "dependencies": {
         "@unocss/core": "^0.44.5",
-        "@zardoy/utils": "^0.0.8",
-        "postcss": "^8.4.14",
         "@unocss/preset-wind": "^0.34.1",
-        "@zardoy/vscode-utils": "^0.0.17",
+        "@zardoy/utils": "^0.0.8",
+        "@zardoy/vscode-utils": "^0.0.18",
+        "postcss": "^8.4.14",
+        "postcss-scss": "^4.0.4",
         "string-dedent": "^3.0.1",
         "vitest": "^0.16.0",
         "vscode-framework": "^0.0.18"

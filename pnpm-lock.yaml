@@ -7,10 +7,11 @@ specifiers:
   '@unocss/preset-wind': ^0.34.1
   '@zardoy/tsconfig': ^1.5.0
   '@zardoy/utils': ^0.0.8
-  '@zardoy/vscode-utils': ^0.0.17
+  '@zardoy/vscode-utils': ^0.0.18
   eslint: ^8.16.0
   eslint-config-zardoy: ^0.2.11
   postcss: ^8.4.14
+  postcss-scss: ^4.0.4
   string-dedent: ^3.0.1
   typescript: ^4.6.4
   vitest: ^0.16.0
@@ -20,8 +21,9 @@ dependencies:
   '@unocss/core': 0.44.5
   '@unocss/preset-wind': 0.34.1
   '@zardoy/utils': 0.0.8
-  '@zardoy/vscode-utils': 0.0.17_unawbvmxtbzqonmqpdnuuihcuq
+  '@zardoy/vscode-utils': 0.0.18_unawbvmxtbzqonmqpdnuuihcuq
   postcss: 8.4.14
+  postcss-scss: 4.0.4_postcss@8.4.14
   string-dedent: 3.0.1
   vitest: 0.16.0
   vscode-framework: 0.0.18_7z6inc52bbdzqfvbvz5ml4oycq
@@ -654,8 +656,8 @@ packages:
       type-fest: 2.17.0
     dev: false
 
-  /@zardoy/vscode-utils/0.0.17_unawbvmxtbzqonmqpdnuuihcuq:
-    resolution: {integrity: sha512-6SLGzlT4A542msg0Ct4HlDaXrYg6EFIM3RNS2P+DcG2Ng3FcYMdjfzMtW8Ar36j70h03kLM3GhWixdtZ1Mj2dw==}
+  /@zardoy/vscode-utils/0.0.18_unawbvmxtbzqonmqpdnuuihcuq:
+    resolution: {integrity: sha512-ejJgthnW3NcbSKf7qwhRcx+BRAit70FYyrk4U0d6vG33Us0dmeXbBJEr+FIRcIOrLS1vAS2CpMno9C0G7uXQzg==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -3593,6 +3595,15 @@ packages:
   /pngjs/5.0.0:
     resolution: {integrity: sha512-40QW5YalBNfQo5yRYmiw7Yz6TKKVr3h6970B2YE+3fQpsWcrbj1PzJgxeJ19DRQjhMbKPIuMY8rFaXc8moolVw==}
     engines: {node: '>=10.13.0'}
+    dev: false
+
+  /postcss-scss/4.0.4_postcss@8.4.14:
+    resolution: {integrity: sha512-aBBbVyzA8b3hUL0MGrpydxxXKXFZc5Eqva0Q3V9qsBOLEMsjb6w49WfpsoWzpEgcqJGW4t7Rio8WXVU9Gd8vWg==}
+    engines: {node: '>=12.0'}
+    peerDependencies:
+      postcss: ^8.3.3
+    dependencies:
+      postcss: 8.4.14
     dev: false
 
   /postcss/8.4.14:

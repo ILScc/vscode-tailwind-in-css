@@ -1,13 +1,11 @@
 /* eslint-disable curly */
-import postcssParser from 'postcss/lib/parse'
-import Node from 'postcss/lib/node'
-import Rule from 'postcss/lib/rule'
-import { Declaration } from 'postcss'
+import { parse as postcssParse } from 'postcss-scss'
+import { Declaration, Node, Rule } from 'postcss'
 
 const findUsedRules = (stylesContent: string, offset: number) => {
     const usedRules = new Map<string, { value: string; offset: number }>()
 
-    const parsed = postcssParser(stylesContent)
+    const parsed = postcssParse(stylesContent)
     const findPositionContainingNode = (position: number, nodes: Node[]) => {
         let currentNode: Node | undefined
         const find = (nodes: Node[]) => {
@@ -50,7 +48,11 @@ export const parseCss = (stylesContent: string, offset: number) => {
                 .join('\n')
             try {
                 usedRules = findUsedRules(stylesWithoutErrorString, offset - error.input.endColumn)
-            } catch {}
+            } catch (error_) {
+                console.log(2, error_)
+            }
+        } else {
+            console.log(error)
         }
     }
 
